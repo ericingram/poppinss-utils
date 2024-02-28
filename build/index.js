@@ -7,8 +7,7 @@ import {
 } from "./chunk-IOBSMUFC.js";
 
 // index.ts
-import { fileURLToPath as fileURLToPath3 } from "node:url";
-import { join as pathJoin, dirname as pathDirname } from "node:path";
+import { join as pathJoin } from "node:path";
 
 // src/secret.ts
 var REDACTED = "[redacted]";
@@ -158,14 +157,11 @@ function flatten(input, glue, keepNullish) {
 }
 
 // src/fs_import_all.ts
-import { fileURLToPath as fileURLToPath2 } from "node:url";
 import lodash2 from "@poppinss/utils/lodash";
 import { extname as extname2, relative, sep } from "node:path";
 
 // src/fs_read_all.ts
 import { join } from "node:path";
-import { readdir, stat } from "node:fs/promises";
-import { fileURLToPath, pathToFileURL } from "node:url";
 
 // src/slash.ts
 import { default as default2 } from "slash";
@@ -176,21 +172,8 @@ function naturalSort(current, next) {
 }
 
 // src/fs_read_all.ts
-function filterDotFiles(fileName) {
-  return fileName[0] !== ".";
-}
 async function readFiles(root, files, options, relativePath) {
   const location = join(root, relativePath);
-  const stats = await stat(location);
-  if (stats.isDirectory()) {
-    let locationFiles = await readdir(location);
-    await Promise.all(
-      locationFiles.filter(filterDotFiles).map((file) => {
-        return readFiles(root, files, options, join(relativePath, file));
-      })
-    );
-    return;
-  }
   const pathType = options.pathType || "relative";
   switch (pathType) {
     case "relative":
@@ -206,15 +189,14 @@ async function readFiles(root, files, options, relativePath) {
       files.push(default2(location));
       break;
     case "url":
-      files.push(pathToFileURL(location).href);
+      files.push("");
   }
 }
 async function fsReadAll(location, options) {
-  const normalizedLocation = typeof location === "string" ? location : fileURLToPath(location);
+  const normalizedLocation = typeof location === "string" ? location : "";
   const normalizedOptions = Object.assign({ absolute: false, sort: naturalSort }, options);
   const files = [];
   try {
-    await stat(normalizedLocation);
   } catch (error) {
     if (normalizedOptions.ignoreMissingRoot) {
       return [];
@@ -244,7 +226,7 @@ function isScriptFile(filePath) {
 
 // src/fs_import_all.ts
 async function importFile(basePath, fileURL, values, options) {
-  const filePath = fileURLToPath2(fileURL);
+  const filePath = "";
   const fileExtension = extname2(filePath);
   const collectionKey = relative(basePath, filePath).replace(new RegExp(`${fileExtension}$`), "").split(sep);
   const exportedValue = fileExtension === ".json" ? await import(fileURL, { assert: { type: "json" } }) : await import(fileURL);
@@ -257,7 +239,7 @@ async function importFile(basePath, fileURL, values, options) {
 async function fsImportAll(location, options) {
   options = options || {};
   const collection = {};
-  const normalizedLocation = typeof location === "string" ? location : fileURLToPath2(location);
+  const normalizedLocation = typeof location === "string" ? location : "";
   const files = await fsReadAll(normalizedLocation, {
     filter: isScriptFile,
     ...options,
@@ -385,11 +367,11 @@ var InvalidArgumentsException = class extends Exception {
 };
 
 // index.ts
-function getDirname(url) {
-  return pathDirname(getFilename(url));
+function getDirname(_url) {
+  return "";
 }
-function getFilename(url) {
-  return fileURLToPath3(url);
+function getFilename(_url) {
+  return "";
 }
 function joinToURL(url, ...str) {
   return pathJoin(getDirname(url), ...str);

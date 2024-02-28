@@ -19,11 +19,11 @@ export { InvalidArgumentsException } from './src/exceptions/invalid_arguments_ex
 /**
  * Get dirname for a given file path URL
  */
-export declare function getDirname(url: string | URL): string;
+export declare function getDirname(_url: string | URL): string;
 /**
  * Get filename for a given file path URL
  */
-export declare function getFilename(url: string | URL): string;
+export declare function getFilename(_url: string | URL): string;
 /**
  * Join paths to a URL instance or a URL string. The return
  * value will be a file path without the `file:///` protocol.

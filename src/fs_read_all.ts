@@ -16,9 +16,9 @@ import { ReadAllFilesOptions } from './types.js'
 /**
  * Filter to remove dot files
  */
-function filterDotFiles(fileName: string) {
+/* function filterDotFiles(fileName: string) {
   return fileName[0] !== '.'
-}
+} */
 
 /**
  * Read all files from the directory recursively
