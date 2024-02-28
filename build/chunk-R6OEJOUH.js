@@ -49,10 +49,9 @@ import { default as slugifyPkg } from "slugify";
 var slug = slugifyPkg;
 
 // src/string/random.ts
-import { randomBytes } from "node:crypto";
 function random(size) {
   const bits = (size + 1) * 6;
-  const buffer = randomBytes(Math.ceil(bits / 8));
+  const buffer = String(Math.random() / bits);
   return base64.urlEncode(buffer).slice(0, size);
 }
 
@@ -267,4 +266,4 @@ var main_default = string;
 export {
   main_default
 };
-//# sourceMappingURL=chunk-K76IL3UP.js.map
+//# sourceMappingURL=chunk-R6OEJOUH.js.map

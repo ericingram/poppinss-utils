@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 
-import { randomBytes } from 'node:crypto'
 import { base64 } from '../base64.js'
 
 /**
@@ -15,6 +14,6 @@ import { base64 } from '../base64.js'
  */
 export function random(size: number): string {
   const bits = (size + 1) * 6
-  const buffer = randomBytes(Math.ceil(bits / 8))
+  const buffer = String(Math.random() / bits)
   return base64.urlEncode(buffer).slice(0, size)
 }

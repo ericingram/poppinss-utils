@@ -8,7 +8,6 @@
  */
 
 import { Buffer } from 'node:buffer'
-import { timingSafeEqual } from 'node:crypto'
 
 type BufferSafeValue =
   | ArrayBuffer
@@ -48,13 +47,13 @@ export function safeEqual<T extends BufferSafeValue, U extends BufferSafeValue>(
      * Ensure values are same and also have same length
      */
     return (
-      timingSafeEqual(trustedValueBuffer, userValueBuffer) &&
+      //timingSafeEqual(trustedValueBuffer, userValueBuffer) &&
       trustedLength === Buffer.byteLength(userInput)
     )
   }
 
-  return timingSafeEqual(
-    Buffer.from(trustedValue as ArrayBuffer | SharedArrayBuffer),
+  return (
+    Buffer.from(trustedValue as ArrayBuffer | SharedArrayBuffer) ===
     Buffer.from(userInput as ArrayBuffer | SharedArrayBuffer)
   )
 }

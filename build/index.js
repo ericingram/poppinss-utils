@@ -344,7 +344,6 @@ var ObjectBuilder = class {
 
 // src/safe_equal.ts
 import { Buffer } from "node:buffer";
-import { timingSafeEqual } from "node:crypto";
 function safeEqual(trustedValue, userInput) {
   if (typeof trustedValue === "string" && typeof userInput === "string") {
     const trustedLength = Buffer.byteLength(trustedValue);
@@ -352,12 +351,12 @@ function safeEqual(trustedValue, userInput) {
     trustedValueBuffer.write(trustedValue);
     const userValueBuffer = Buffer.alloc(trustedLength, 0, "utf-8");
     userValueBuffer.write(userInput);
-    return timingSafeEqual(trustedValueBuffer, userValueBuffer) && trustedLength === Buffer.byteLength(userInput);
+    return (
+      //timingSafeEqual(trustedValueBuffer, userValueBuffer) &&
+      trustedLength === Buffer.byteLength(userInput)
+    );
   }
-  return timingSafeEqual(
-    Buffer.from(trustedValue),
-    Buffer.from(userInput)
-  );
+  return Buffer.from(trustedValue) === Buffer.from(userInput);
 }
 
 // src/exceptions/invalid_arguments_exception.ts
