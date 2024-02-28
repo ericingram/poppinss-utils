@@ -7,8 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import { fileURLToPath } from 'node:url'
-import { join as pathJoin, dirname as pathDirname } from 'node:path'
+import { join as pathJoin } from 'node:path'
 
 export { Secret } from './src/secret.js'
 export { base64 } from './src/base64.js'
@@ -31,15 +30,15 @@ export { InvalidArgumentsException } from './src/exceptions/invalid_arguments_ex
 /**
  * Get dirname for a given file path URL
  */
-export function getDirname(url: string | URL) {
-  return pathDirname(getFilename(url))
+export function getDirname(_url: string | URL) {
+  return ''
 }
 
 /**
  * Get filename for a given file path URL
  */
-export function getFilename(url: string | URL) {
-  return fileURLToPath(url)
+export function getFilename(_url: string | URL) {
+  return ''
 }
 
 /**

@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 
-import { fileURLToPath } from 'node:url'
 import lodash from '@poppinss/utils/lodash'
 import { extname, relative, sep } from 'node:path'
 
@@ -28,7 +27,7 @@ async function importFile(
   /**
    * Converting URL to file path
    */
-  const filePath = fileURLToPath(fileURL)
+  const filePath = ''
 
   /**
    * Grab file extension
@@ -77,7 +76,7 @@ export async function fsImportAll(
 ): Promise<any> {
   options = options || {}
   const collection: any = {}
-  const normalizedLocation = typeof location === 'string' ? location : fileURLToPath(location)
+  const normalizedLocation = typeof location === 'string' ? location : ''
   const files = await fsReadAll(normalizedLocation, {
     filter: isScriptFile,
     ...options,

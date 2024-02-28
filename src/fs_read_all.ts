@@ -8,8 +8,6 @@
  */
 
 import { join } from 'node:path'
-import { readdir, stat } from 'node:fs/promises'
-import { fileURLToPath, pathToFileURL } from 'node:url'
 
 import { slash } from './slash.js'
 import { naturalSort } from './natural_sort.js'
@@ -32,9 +30,9 @@ async function readFiles(
   relativePath: string
 ): Promise<void> {
   const location = join(root, relativePath)
-  const stats = await stat(location)
+  /* const stats = await stat(location) */
 
-  if (stats.isDirectory()) {
+  /* if (stats.isDirectory()) {
     let locationFiles = await readdir(location)
 
     await Promise.all(
@@ -44,7 +42,7 @@ async function readFiles(
     )
 
     return
-  }
+  } */
 
   const pathType = options.pathType || 'relative'
   switch (pathType) {
@@ -61,7 +59,7 @@ async function readFiles(
       files.push(slash(location))
       break
     case 'url':
-      files.push(pathToFileURL(location).href)
+      files.push('')
   }
 }
 
@@ -86,7 +84,7 @@ export async function fsReadAll(
   location: string | URL,
   options?: ReadAllFilesOptions
 ): Promise<string[]> {
-  const normalizedLocation = typeof location === 'string' ? location : fileURLToPath(location)
+  const normalizedLocation = typeof location === 'string' ? location : ''
   const normalizedOptions = Object.assign({ absolute: false, sort: naturalSort }, options)
   const files: string[] = []
 
@@ -95,7 +93,7 @@ export async function fsReadAll(
    * error when "ignoreMissingRoot" is set to true
    */
   try {
-    await stat(normalizedLocation)
+    /* await stat(normalizedLocation) */
   } catch (error) {
     if (normalizedOptions.ignoreMissingRoot) {
       return []
